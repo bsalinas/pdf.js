@@ -6611,6 +6611,19 @@ function webViewerInitialized() {
 
   if (file) {
     PDFViewerApplication.open(file, 0);
+    if('findtext' in params){
+          var event = document.createEvent('CustomEvent');
+          event.initCustomEvent('find', true, true, {
+            query: params["findtext"],
+            caseSensitive: false,
+            highlightAll: true,
+            findPrevious: false
+          });
+        window.dispatchEvent(event);
+        PDFViewerApplication.findBar.open()
+        PDFViewerApplication.findBar.findField.value = params["findtext"];
+        PDFViewerApplication.findBar.highlightAll.checked = true;
+    }
   }
 }
 
